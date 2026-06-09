@@ -609,6 +609,7 @@ section { padding: clamp(4rem, 8vw, 7rem) 0; }
 }
 
 .about-img-decoration {
+   diplay: none;
   position: absolute;
   top: -15px; right: -15px;
   width: 120px; height: 120px;
