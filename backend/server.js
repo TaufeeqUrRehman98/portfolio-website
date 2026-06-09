@@ -7,13 +7,15 @@ const csrf = require('csurf');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const nodemailer = require('nodemailer');
+const { body, validationResult } = require('express-validator');
 
 const adminRoutes = require('./routes/admin');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ─── Security Headers via Helmet ──────────────────────────
+// ─── Security Headers ──────────────────────────────────────
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -35,7 +37,7 @@ app.use(helmet({
   frameguard: { action: 'deny' },
 }));
 
-// ─── CORS ─────────────────────────────────────────────────
+// ─── CORS ──────────────────────────────────────────────────
 app.use(cors({
   origin: process.env.ALLOWED_ORIGIN || `http://localhost:${PORT}`,
   credentials: true,
@@ -49,29 +51,22 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 
 // ─── Global Rate Limiter ───────────────────────────────────
-const globalLimiter = rateLimit({
+app.use(rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
   standardHeaders: true,
   legacyHeaders: false,
-  message: { success: false, message: 'Too many requests. Please try again later.' }
-});
-app.use(globalLimiter);
-
-// ─── Static Assets ─────────────────────────────────────────
-app.use('/assets', express.static(path.join(__dirname, '../assets'), { maxAge: '7d', etag: true }));
-app.use('/data', express.static(path.join(__dirname, '../data'), {
-  maxAge: '0',
-  setHeaders: (res) => { res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate'); }
 }));
 
-// ─── CSRF Protection ───────────────────────────────────────
+// ─── Static Files ──────────────────────────────────────────
+app.use('/assets', express.static(path.join(__dirname, '../assets'), { maxAge: '7d' }));
+app.use('/data', express.static(path.join(__dirname, '../data'), {
+  setHeaders: (res) => res.setHeader('Cache-Control', 'no-cache')
+}));
+
+// ─── CSRF ──────────────────────────────────────────────────
 const csrfProtection = csrf({
-  cookie: {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict'
-  }
+  cookie: { httpOnly: true, secure: false, sameSite: 'lax' }
 });
 
 app.get('/api/csrf-token', csrfProtection, (req, res) => {
@@ -81,9 +76,16 @@ app.get('/api/csrf-token', csrfProtection, (req, res) => {
 // ─── Admin Routes ──────────────────────────────────────────
 app.use('/api/admin', csrfProtection, adminRoutes);
 
-// ─── Contact Form ──────────────────────────────────────────
-const { body, validationResult } = require('express-validator');
+// ─── Nodemailer Transporter ────────────────────────────────
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
+// ─── Contact Form ──────────────────────────────────────────
 const contactLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 5,
@@ -93,20 +95,70 @@ const contactLimiter = rateLimit({
 app.post('/api/contact', contactLimiter, csrfProtection, [
   body('name').trim().notEmpty().isLength({ min: 2, max: 100 }).escape(),
   body('email').trim().isEmail().normalizeEmail(),
-  body('subject').trim().notEmpty().isLength({ max: 200 }).escape(),
+  body('subject').trim().optional().isLength({ max: 200 }).escape(),
   body('message').trim().notEmpty().isLength({ min: 10, max: 2000 }).escape(),
-], (req, res) => {
+], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ success: false, errors: errors.array() });
   }
+
   const { name, email, subject, message } = req.body;
-  console.log(`[CONTACT ${new Date().toISOString()}] From: ${name} <${email}> — Subject: ${subject}`);
+  const timestamp = new Date().toISOString();
+  console.log(`[CONTACT ${timestamp}] From: ${name} <${email}> Subject: ${subject}`);
+
+  // Send email via Gmail
+  if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+    try {
+      await transporter.sendMail({
+        from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
+        to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+        replyTo: email,
+        subject: `Portfolio Contact: ${subject}`,
+        html: `
+          <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#f4f4f4;padding:20px;border-radius:10px">
+            <div style="background:#070d14;padding:25px;border-radius:8px;text-align:center;margin-bottom:20px">
+              <h1 style="color:#00ff88;margin:0;font-size:1.5rem">New Contact Message</h1>
+              <p style="color:#8ba8c0;margin:5px 0 0">From your Portfolio Website</p>
+            </div>
+            <div style="background:#ffffff;padding:25px;border-radius:8px;margin-bottom:15px">
+              <table style="width:100%;border-collapse:collapse">
+                <tr style="border-bottom:1px solid #eee">
+                  <td style="padding:10px 0;font-weight:bold;color:#555;width:80px">Name:</td>
+                  <td style="padding:10px 0;color:#111">${name}</td>
+                </tr>
+                <tr style="border-bottom:1px solid #eee">
+                  <td style="padding:10px 0;font-weight:bold;color:#555">Email:</td>
+                  <td style="padding:10px 0"><a href="mailto:${email}" style="color:#0066cc">${email}</a></td>
+                </tr>
+                <tr style="border-bottom:1px solid #eee">
+                  <td style="padding:10px 0;font-weight:bold;color:#555">Subject:</td>
+                  <td style="padding:10px 0;color:#111">${subject}</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 0;font-weight:bold;color:#555;vertical-align:top">Message:</td>
+                  <td style="padding:10px 0;color:#111;line-height:1.6">${message.replace(/\n/g, '<br>')}</td>
+                </tr>
+              </table>
+            </div>
+            <div style="background:#070d14;padding:15px;border-radius:8px;text-align:center">
+              <a href="mailto:${email}" style="background:#00ff88;color:#070d14;padding:10px 25px;border-radius:5px;text-decoration:none;font-weight:bold;display:inline-block">Reply to ${name}</a>
+            </div>
+            <p style="text-align:center;color:#999;font-size:0.75rem;margin-top:15px">Sent from Taufeeq Portfolio — ${timestamp}</p>
+          </div>
+        `,
+      });
+      console.log(`[EMAIL SENT] To: ${process.env.EMAIL_TO || process.env.EMAIL_USER}`);
+    } catch (emailErr) {
+      console.error('[EMAIL ERROR]', emailErr.message);
+    }
+  }
+
   res.json({ success: true, message: 'Message received! I will get back to you shortly.' });
 });
 
 // ─── Frontend ──────────────────────────────────────────────
-app.use(express.static(path.join(__dirname, '../frontend'), { maxAge: '1h', etag: true }));
+app.use(express.static(path.join(__dirname, '../frontend'), { maxAge: '1h' }));
 
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/admin.html'));
@@ -121,14 +173,15 @@ app.use((err, req, res, next) => {
   if (err.code === 'EBADCSRFTOKEN') {
     return res.status(403).json({ success: false, message: 'Invalid CSRF token.' });
   }
-  console.error(`[ERROR ${new Date().toISOString()}]`, err.message);
+  console.error(`[ERROR]`, err.message);
   res.status(500).json({ success: false, message: 'Internal server error.' });
 });
 
 // ─── Start ─────────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`\n🚀 Resume Website running at http://localhost:${PORT}`);
+  console.log(`\n🚀 Portfolio running at http://localhost:${PORT}`);
   console.log(`🔒 Admin panel at http://localhost:${PORT}/admin`);
+  console.log(`📧 Email: ${process.env.EMAIL_USER ? '✅ Configured' : '❌ Not configured — add EMAIL_USER/EMAIL_PASS to .env'}`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}\n`);
 });
 
