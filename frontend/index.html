@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Taufeeq Ur Rehman — Web Developer & Pentester from Karachi, Pakistan. Expert in WordPress, Shopify, PHP, and cybersecurity." />
+  <meta name="keywords" content="web developer, pentester, cybersecurity, WordPress, Shopify, Karachi, Pakistan" />
+  <meta property="og:title" content="Taufeeq Ur Rehman — Web Developer & Pentester" />
+  <meta property="og:description" content="Building secure, high-performance web experiences." />
+  <meta property="og:type" content="website" />
+  <title>Taufeeq Ur Rehman — Web Developer & Pentester</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+
+  <!-- Google Fonts (preconnect first) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+</head>
+<body>
+
+  <!-- ═══ NAVBAR ═══════════════════════════════════════════ -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="Home">
+        T<span>.</span>Rehman<span style="color:var(--accent)">_</span>
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#about"      class="nav-link">About</a></li>
+        <li><a href="#skills"     class="nav-link">Skills</a></li>
+        <li><a href="#experience" class="nav-link">Experience</a></li>
+        <li><a href="#projects"   class="nav-link">Projects</a></li>
+        <li><a href="#education"  class="nav-link">Education</a></li>
+        <li><a href="#contact"    class="nav-link">Contact</a></li>
+        <li>
+          <a href="https://github.com/TaufeeqUrRehman98" id="nav-github" class="nav-link" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58 0-.28-.01-1.03-.02-2.02-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.08 1.85 1.24 1.85 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22 0 1.61-.01 2.9-.01 3.3 0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+
+      <div class="nav-controls">
+        <!-- Font size controls -->
+        <button id="font-decrease" class="icon-btn" title="Decrease font size" aria-label="Decrease font size">A-</button>
+        <button id="font-increase" class="icon-btn" title="Increase font size" aria-label="Increase font size">A+</button>
+        <!-- Theme toggle -->
+        <button id="theme-toggle" class="icon-btn" title="Toggle theme" aria-label="Toggle light/dark mode">
+          <svg id="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg id="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <!-- Mobile burger -->
+        <button id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" role="dialog" aria-label="Mobile navigation">
+    <a href="#about"      class="nav-link">About</a>
+    <a href="#skills"     class="nav-link">Skills</a>
+    <a href="#experience" class="nav-link">Experience</a>
+    <a href="#projects"   class="nav-link">Projects</a>
+    <a href="#education"  class="nav-link">Education</a>
+    <a href="#contact"    class="nav-link">Contact</a>
+    <a href="https://github.com/TaufeeqUrRehman98" class="nav-link" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+
+  <!-- ═══ HERO ══════════════════════════════════════════════ -->
+  <section id="hero" aria-label="Introduction">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-bg-grid" aria-hidden="true"></div>
+
+    <!-- Decorative orbs -->
+    <div class="orb-bg orb-green" style="width:500px;height:500px;top:-100px;right:5%" data-speed="0.6" aria-hidden="true"></div>
+    <div class="orb-bg orb-blue"  style="width:400px;height:400px;bottom:0;left:10%" data-speed="0.9" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <div class="hero-content">
+        <p class="hero-eyebrow mono">Available for freelance work</p>
+
+        <h1 id="hero-name">Taufeeq Ur Rehman</h1>
+
+        <div class="hero-title-wrap">
+          <span id="typing-text"></span>
+          <span class="cursor" aria-hidden="true"></span>
+        </div>
+
+        <p class="hero-subtitle">
+          Results-driven Web Developer combining hands-on development expertise with a Cyber Security background to build websites that are visually stunning, blazing fast, and rock-solid secure.
+        </p>
+
+        <div class="hero-cta">
+          <a href="#contact" class="btn-primary">
+            Get In Touch
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="/assets/docs/cv.pdf" id="cv-download-btn" class="btn-outline" download>
+            Download CV
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </a>
+          <a href="https://wa.me/923152438034" class="btn-outline" target="_blank" rel="noopener" style="color:var(--accent)">
+            WhatsApp
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.885 3.488"/></svg>
+          </a>
+        </div>
+
+        <div class="hero-badges">
+          <span class="hero-badge">🛡️ Cybersecurity</span>
+          <span class="hero-badge">⚡ WordPress Expert</span>
+          <span class="hero-badge">🛒 Shopify Dev</span>
+          <span class="hero-badge">🔒 OWASP</span>
+          <span class="hero-badge">🤖 AI Tools</span>
+        </div>
+      </div>
+
+      <!-- Profile photo side -->
+      <div class="hero-profile-wrap" aria-hidden="true">
+        <div class="hero-profile-outer">
+          <div class="hero-profile-inner">
+            <img id="profile-photo" src="/assets/images/profile.jpg" alt="Taufeeq Ur Rehman" loading="eager" />
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-number" data-target="1" data-suffix="yr">0yr</div>
+            <div class="stat-label">Experience</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-target="20" data-suffix="+">0+</div>
+            <div class="stat-label">Projects</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-target="100" data-suffix="%">0%</div>
+            <div class="stat-label">Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <div class="scroll-hint-arrow"></div>
+      <span class="mono">SCROLL</span>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ═════════════════════════════════════════════ -->
+  <section id="about" aria-label="About me">
+    <div class="container">
+      <div class="grid-2">
+        <div class="about-image-wrap">
+          <div class="about-img-container">
+            <img src="/assets/images/profile.jpg" alt="Taufeeq Ur Rehman — Web Developer & Pentester" loading="lazy" />
+            <div class="about-img-overlay" aria-hidden="true"></div>
+            <span class="about-img-badge">🇵🇰 Karachi, Pakistan</span>
+          </div>
+          <div class="about-img-decoration" aria-hidden="true"></div>
+        </div>
+
+        <div class="about-content">
+          <div class="section-head-wrap">
+            <span class="section-label">01 // About</span>
+            <h2 class="section-heading">Who I <span>Am</span></h2>
+          </div>
+
+          <p class="about-text" id="about-text">
+            Results-driven Web Developer with 1 year of hands-on experience building responsive websites and web applications. Proficient in WordPress, Shopify, PHP, JavaScript, HTML, and CSS. Combines a Cyber Security background with development skills to build websites that are not only visually appealing but also secure and performance-optimized.
+          </p>
+
+          <ul class="about-bullets" aria-label="Key highlights">
+            <li class="about-bullet">Designed and developed responsive websites for clients using HTML, CSS, JavaScript, and PHP.</li>
+            <li class="about-bullet">Built and customized WordPress websites including themes, plugins, and WooCommerce integrations.</li>
+            <li class="about-bullet">Developed Shopify storefronts with custom theme edits, product pages, and payment setup.</li>
+            <li class="about-bullet">Ensured websites followed OWASP security guidelines to prevent common vulnerabilities.</li>
+            <li class="about-bullet">Collaborated directly with clients to gather requirements and deliver projects on time.</li>
+            <li class="about-bullet">Optimized website performance and loading speed for better user experience and SEO.</li>
+            <li class="about-bullet">Used AI and Prompt Engineering tools to speed up development workflows.</li>
+          </ul>
+
+          <div class="about-social">
+            <a href="mailto:taufeequrrehman98@gmail.com" class="social-link">
+              ✉️ Email Me
+            </a>
+            <a href="https://wa.me/923152438034" class="social-link" target="_blank" rel="noopener">
+              💬 WhatsApp
+            </a>
+            <a href="https://github.com/TaufeeqUrRehman98" class="social-link" target="_blank" rel="noopener">
+              🐙 GitHub
+            </a>
+            <a href="#" class="social-link" target="_blank" rel="noopener">
+              💼 LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SKILLS ════════════════════════════════════════════ -->
+  <section id="skills" aria-label="Technical skills">
+    <div class="container">
+      <div class="section-head-wrap">
+        <span class="section-label">02 // Skills</span>
+        <h2 class="section-heading">Tech <span>Stack</span></h2>
+        <p class="section-desc">A blend of frontend craftsmanship, CMS expertise, and backend security know-how.</p>
+      </div>
+
+      <div class="skills-grid">
+
+        <!-- Frontend -->
+        <div class="skill-category">
+          <h3 class="skill-category-title">⚡ Frontend</h3>
+          <div class="skill-item">
+            <div class="skill-meta"><span class="skill-name">HTML5 / CSS3</span><span class="skill-level">92%</span></div>
+            <div class="skill-bar"><div class="skill-bar-fill" data-level="92"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-meta"><span class="skill-name">JavaScript (ES6+)</span><span class="skill-level">85%</span></div>
+            <div class="skill-bar"><div class="skill-bar-fill" data-level="85"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-meta"><span class="skill-name">Responsive Design</span><span class="skill-level">90%</span></div>
+            <div class="skill-bar"><div class="skill-bar-fill" data-level="90"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-meta"><span class="skill-name">Bootstrap / Tailwind CSS</span><span class="skill-level">88%</span></div>
+            <div class="skill-bar"><div class="skill-bar-fill" data-level="88"></div></div>
+          </div>
+        </div>
+
+        <!-- CMS & E-Commerce -->
+        <div class="skill-category">
+          <h3 class="skill-category-title">🛒 CMS & E-Commerce</h3>
+          <div class="skill-item">
+            <div class="skill-meta"><span class="skill-name">WordPress</span><span class="skill-level">90%</span></div>
+            <div class="skill-bar"><div class="skill-bar-fill" data-level="90"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-meta"><span class="skill-name">Shopify</span><span class="skill-level">85%</span></div>
+            <div class="skill-bar"><div class="skill-bar-fill" data-level="85"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-meta"><span class="skill-name">Theme Customization</span><span class="skill-level">88%</span></div>
+            <div class="skill-bar"><div class="skill-bar-fill" data-level="88"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-meta"><span class="skill-name">Plugin Integration</span><span class="skill-level">82%</span></div>
+            <div class="skill-bar"><div class="skill-bar-fill" data-level="82"></div></div>
+          </div>
+        </div>
+
+        <!-- Backend & Security -->
+        <div class="skill-category">
+          <h3 class="skill-category-title">🔒 Backend & Security</h3>
+          <div class="skill-item">
+            <div class="skill-meta"><span class="skill-name">PHP</span><span class="skill-level">78%</span></div>
+            <div class="skill-bar"><div class="skill-bar-fill" data-level="78"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-meta"><span class="skill-name">Cyber Security Basics</span><span class="skill-level">85%</span></div>
+            <div class="skill-bar"><div class="skill-bar-fill" data-level="85"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-meta"><span class="skill-name">OWASP Web Security</span><span class="skill-level">80%</span></div>
+            <div class="skill-bar"><div class="skill-bar-fill" data-level="80"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-meta"><span class="skill-name">Penetration Testing</span><span class="skill-level">75%</span></div>
+            <div class="skill-bar"><div class="skill-bar-fill" data-level="75"></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EXPERIENCE ════════════════════════════════════════ -->
+  <section id="experience" aria-label="Work experience">
+    <div class="container">
+      <div class="section-head-wrap">
+        <span class="section-label">03 // Experience</span>
+        <h2 class="section-heading">Work <span>History</span></h2>
+        <p class="section-desc">Hands-on client work combining development speed with security-first thinking.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Freelance Web Developer</div>
+                <div class="timeline-company">Self-Employed — Remote</div>
+              </div>
+              <div class="timeline-meta">
+                <span class="timeline-period">2023 – Present</span>
+                <span class="timeline-location">📍 Karachi, Pakistan</span>
+              </div>
+            </div>
+            <p class="timeline-desc">Building secure, responsive websites and web applications for clients across various industries globally.</p>
+            <ul class="timeline-bullets" aria-label="Responsibilities">
+              <li class="timeline-bullet">Designed and developed responsive websites for clients using HTML, CSS, JavaScript, and PHP.</li>
+              <li class="timeline-bullet">Built and customized WordPress websites including themes, plugins, and WooCommerce integrations.</li>
+              <li class="timeline-bullet">Developed Shopify storefronts with custom theme edits, product pages, and payment setup.</li>
+              <li class="timeline-bullet">Ensured websites followed OWASP security guidelines to prevent common vulnerabilities.</li>
+              <li class="timeline-bullet">Collaborated directly with clients to gather requirements and deliver projects on time.</li>
+              <li class="timeline-bullet">Optimized website performance and loading speed for better user experience and SEO ranking.</li>
+              <li class="timeline-bullet">Used AI and Prompt Engineering tools to speed up development workflows and content generation.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROJECTS ══════════════════════════════════════════ -->
+  <section id="projects" aria-label="Projects">
+    <div class="container">
+      <div class="section-head-wrap">
+        <span class="section-label">04 // Projects</span>
+        <h2 class="section-heading">Featured <span>Work</span></h2>
+        <p class="section-desc">Real-world projects combining performance, security, and clean user experience.</p>
+      </div>
+
+      <div class="projects-grid">
+
+        <article class="project-card">
+          <span class="project-icon" aria-hidden="true">🛡️</span>
+          <h3 class="project-title">Web Security Scanner</h3>
+          <p class="project-desc">A penetration testing tool that scans web applications for common vulnerabilities including XSS, SQL Injection, CSRF, and OWASP Top 10 threats. Features a clean web-based dashboard for reporting.</p>
+          <div class="project-tags" aria-label="Technologies used">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Cybersecurity</span>
+            <span class="project-tag">OWASP</span>
+            <span class="project-tag">Penetration Testing</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/TaufeeqUrRehman98" class="project-link" target="_blank" rel="noopener" aria-label="View on GitHub">
+              🐙 GitHub
+            </a>
+            <a href="#" class="project-link" aria-label="Live demo">
+              🔗 Demo
+            </a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <span class="project-icon" aria-hidden="true">🛒</span>
+          <h3 class="project-title">E-Commerce Websites</h3>
+          <p class="project-desc">Developed multiple fully functional e-commerce storefronts on WordPress/WooCommerce and Shopify with custom themes, secure payment gateways, product management, and mobile-optimized UX.</p>
+          <div class="project-tags" aria-label="Technologies used">
+            <span class="project-tag">WordPress</span>
+            <span class="project-tag">Shopify</span>
+            <span class="project-tag">WooCommerce</span>
+            <span class="project-tag">PHP</span>
+            <span class="project-tag">JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/TaufeeqUrRehman98" class="project-link" target="_blank" rel="noopener" aria-label="View on GitHub">
+              🐙 GitHub
+            </a>
+            <a href="#contact" class="project-link" aria-label="Request details">
+              📩 Request Details
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EDUCATION ═════════════════════════════════════════ -->
+  <section id="education" aria-label="Education">
+    <div class="container">
+      <div class="section-head-wrap">
+        <span class="section-label">05 // Education</span>
+        <h2 class="section-heading">Academic <span>Background</span></h2>
+      </div>
+
+      <div class="education-card">
+        <span class="edu-icon" aria-hidden="true">🎓</span>
+        <div>
+          <div class="edu-degree">Bachelor's in Cyber Security</div>
+          <div class="edu-institution">Sindh Madrassatul Islam University</div>
+          <div class="edu-meta">
+            <span>📅 2020 – 2024</span>
+            <span>📍 Karachi, Pakistan</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LANGUAGES ═════════════════════════════════════════ -->
+  <section id="languages" aria-label="Languages">
+    <div class="container">
+      <div class="section-head-wrap">
+        <span class="section-label">06 // Languages</span>
+        <h2 class="section-heading">Languages I <span>Speak</span></h2>
+      </div>
+
+      <div class="languages-grid">
+        <div class="language-card">
+          <div class="language-name">🇬🇧 English</div>
+          <div class="language-level">Fluent</div>
+        </div>
+        <div class="language-card">
+          <div class="language-name">🇵🇰 Urdu</div>
+          <div class="language-level">Native</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══════════════════════════════════════════ -->
+  <section id="contact" aria-label="Contact">
+    <div class="container">
+      <div class="section-head-wrap">
+        <span class="section-label">07 // Contact</span>
+        <h2 class="section-heading">Get In <span>Touch</span></h2>
+        <p class="section-desc">Have a project in mind? Let's build something secure and impressive together.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-item-icon" aria-hidden="true">✉️</div>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-value">
+                <a href="mailto:taufeequrrehman98@gmail.com" id="contact-email-link">taufeequrrehman98@gmail.com</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item-icon" aria-hidden="true">📱</div>
+            <div>
+              <div class="contact-item-label">Phone / WhatsApp</div>
+              <div class="contact-item-value">
+                <a href="tel:+923152438034" id="contact-phone-link">+92 315 2438034</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item-icon" aria-hidden="true">📍</div>
+            <div>
+              <div class="contact-item-label">Location</div>
+              <div class="contact-item-value">Karachi, Pakistan</div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item-icon" aria-hidden="true">🐙</div>
+            <div>
+              <div class="contact-item-label">GitHub</div>
+              <div class="contact-item-value">
+                <a href="https://github.com/TaufeeqUrRehman98" target="_blank" rel="noopener">TaufeeqUrRehman98</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item-icon" aria-hidden="true">💼</div>
+            <div>
+              <div class="contact-item-label">LinkedIn</div>
+              <div class="contact-item-value">
+                <a href="#" target="_blank" rel="noopener">Coming Soon</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="contact-name">Name *</label>
+                <input id="contact-name" class="form-input" type="text" name="name" placeholder="John Doe" required autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contact-email">Email *</label>
+                <input id="contact-email" class="form-input" type="email" name="email" placeholder="john@example.com" required autocomplete="email" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-subject">Subject</label>
+              <input id="contact-subject" class="form-input" type="text" name="subject" placeholder="Project inquiry" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-message">Message *</label>
+              <textarea id="contact-message" class="form-textarea" name="message" placeholder="Tell me about your project..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit-btn">Send Message</button>
+            <div id="form-status" class="form-status" role="alert" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-copy">
+          &copy; <span id="footer-year"></span> <span>Taufeeq Ur Rehman</span>. Built with 💚 and a security mindset.
+        </p>
+        <div class="footer-links">
+          <a href="mailto:taufeequrrehman98@gmail.com">Email</a>
+          <a href="https://github.com/TaufeeqUrRehman98" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://wa.me/923152438034" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="#hero">Back to top ↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Theme icon switch script (inline for instant load) -->
+  <script>
+    (function(){
+      const t = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+      document.getElementById('icon-sun').style.display  = t === 'dark' ? 'block' : 'none';
+      document.getElementById('icon-moon').style.display = t === 'light' ? 'block' : 'none';
+      document.getElementById('footer-year').textContent = new Date().getFullYear();
+    })();
+  </script>
+  <script>
+    // Keep theme icons in sync with toggle
+    document.getElementById('theme-toggle').addEventListener('click', function(){
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.getElementById('icon-sun').style.display  = next === 'dark' ? 'block' : 'none';
+      document.getElementById('icon-moon').style.display = next === 'light' ? 'block' : 'none';
+    });
+  </script>
+
+  <!-- Main scripts (deferred) -->
+  <script src="/js/three-scene.js" defer></script>
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

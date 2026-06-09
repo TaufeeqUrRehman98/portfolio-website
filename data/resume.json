@@ -1,0 +1,93 @@
+{
+  "name": "Taufeeq Ur Rehman",
+  "title": "Web Developer & Pentester",
+  "tagline": "Building Secure, High-Performance Web Experiences",
+  "email": "taufeequrrehman98@gmail.com",
+  "phone": "+923152438034",
+  "whatsapp": "+923152438034",
+  "linkedin": "#",
+  "github": "https://github.com/TaufeeqUrRehman98",
+  "location": "Karachi, Pakistan",
+  "photo": "/assets/images/profile.jpg",
+  "cv": "/assets/docs/cv.pdf",
+  "about": "Results-driven Web Developer with 1 year of hands-on experience building responsive websites and web applications. Proficient in WordPress, Shopify, PHP, JavaScript, HTML, and CSS. Combines a Cyber Security background with development skills to build websites that are not only visually appealing but also secure and performance-optimized. Quick learner, detail-oriented, and passionate about clean code.",
+  "aboutBullets": [
+    "Designed and developed responsive websites for clients using HTML, CSS, JavaScript, and PHP.",
+    "Built and customized WordPress websites including themes, plugins, and WooCommerce integrations.",
+    "Developed Shopify storefronts with custom theme edits, product pages, and payment setup.",
+    "Ensured websites followed OWASP security guidelines to prevent common vulnerabilities.",
+    "Collaborated directly with clients to gather requirements and deliver projects on time.",
+    "Optimized website performance and loading speed for better user experience and SEO ranking.",
+    "Used AI and Prompt Engineering tools to speed up development workflows and content generation."
+  ],
+  "education": [
+    {
+      "degree": "Bachelor's in Cyber Security",
+      "institution": "Sindh Madrassatul Islam University",
+      "location": "Karachi, Pakistan",
+      "year": "2020 – 2024",
+      "icon": "🎓"
+    }
+  ],
+  "skills": {
+    "Frontend": [
+      { "name": "HTML5 / CSS3", "level": 92 },
+      { "name": "JavaScript (ES6+)", "level": 85 },
+      { "name": "Responsive Design", "level": 90 },
+      { "name": "Bootstrap / Tailwind CSS", "level": 88 }
+    ],
+    "CMS & E-Commerce": [
+      { "name": "WordPress", "level": 90 },
+      { "name": "Shopify", "level": 85 },
+      { "name": "Theme Customization", "level": 88 },
+      { "name": "Plugin Integration", "level": 82 }
+    ],
+    "Backend & Security": [
+      { "name": "PHP", "level": 78 },
+      { "name": "Cyber Security Basics", "level": 85 },
+      { "name": "OWASP Web Security", "level": 80 },
+      { "name": "Penetration Testing", "level": 75 }
+    ]
+  },
+  "experience": [
+    {
+      "title": "Freelance Web Developer",
+      "company": "Self-Employed",
+      "period": "2023 – Present",
+      "location": "Karachi, Pakistan",
+      "description": "Building secure, responsive websites and web applications for clients globally.",
+      "bullets": [
+        "Designed and developed responsive websites for clients using HTML, CSS, JavaScript, and PHP.",
+        "Built and customized WordPress websites including themes, plugins, and WooCommerce integrations.",
+        "Developed Shopify storefronts with custom theme edits, product pages, and payment setup.",
+        "Ensured websites followed OWASP security guidelines to prevent common vulnerabilities.",
+        "Collaborated directly with clients to gather requirements and deliver projects on time.",
+        "Optimized website performance and loading speed for better user experience and SEO ranking.",
+        "Used AI and Prompt Engineering tools to speed up development workflows and content generation."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Web Security Scanner",
+      "description": "A penetration testing tool that scans web applications for common vulnerabilities including XSS, SQL Injection, CSRF, and OWASP Top 10 threats. Built with Python and a web-based dashboard.",
+      "tags": ["Python", "Cybersecurity", "OWASP", "Penetration Testing"],
+      "icon": "🛡️",
+      "link": "#",
+      "github": "https://github.com/TaufeeqUrRehman98"
+    },
+    {
+      "title": "E-Commerce Websites",
+      "description": "Developed multiple fully functional e-commerce storefronts on WordPress/WooCommerce and Shopify with custom themes, payment gateways, and secure checkout flows.",
+      "tags": ["WordPress", "Shopify", "WooCommerce", "PHP", "JavaScript"],
+      "icon": "🛒",
+      "link": "#",
+      "github": "https://github.com/TaufeeqUrRehman98"
+    }
+  ],
+  "certifications": [],
+  "languages": [
+    { "name": "English", "level": "Fluent" },
+    { "name": "Urdu", "level": "Native" }
+  ]
+}
