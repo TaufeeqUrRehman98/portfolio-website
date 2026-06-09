@@ -347,12 +347,6 @@
     const form = document.getElementById('contact-form');
     if (!form) return;
 
-    let csrfToken = '';
-    fetch('/api/csrf-token')
-      .then(r => r.json())
-      .then(d => { csrfToken = d.csrfToken; })
-      .catch(() => {});
-
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = form.querySelector('.form-submit-btn');
@@ -361,7 +355,7 @@
       const data = {
         name:    form.querySelector('[name="name"]').value.trim(),
         email:   form.querySelector('[name="email"]').value.trim(),
-        subject: form.querySelector('[name="subject"]').value.trim(),
+        subject: form.querySelector('[name="subject"]').value.trim() || 'Portfolio Contact',
         message: form.querySelector('[name="message"]').value.trim(),
       };
 
@@ -374,19 +368,29 @@
       btn.textContent = 'Sending...';
 
       try {
+        let csrfToken = '';
+        try {
+          const csrfRes = await fetch('/api/csrf-token', { credentials: 'include' });
+          const csrfData = await csrfRes.json();
+          csrfToken = csrfData.csrfToken || '';
+        } catch (csrfErr) {
+          console.warn('CSRF fetch failed:', csrfErr);
+        }
+
         const res = await fetch('/api/contact', {
           method: 'POST',
+          credentials: 'include',
           headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
           body: JSON.stringify(data),
         });
         const result = await res.json();
         if (result.success) {
-          showStatus(status, '✅ Message sent! I\'ll get back to you soon.', 'success');
+          showStatus(status, 'Message sent! I will get back to you soon.', 'success');
           form.reset();
         } else {
           showStatus(status, result.message || 'Something went wrong.', 'error');
         }
-      } catch {
+      } catch (err) {
         showStatus(status, 'Network error. Please try again later.', 'error');
       } finally {
         btn.disabled = false;
@@ -394,7 +398,6 @@
       }
     });
   }
-
   function showStatus(el, msg, type) {
     if (!el) return;
     el.textContent = msg;
