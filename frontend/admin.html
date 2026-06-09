@@ -9,504 +9,516 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #070d14; --bg2: #0d1a26; --card: #0f1f30;
-      --accent: #00ff88; --text: #e8f4f0; --muted: #6b8aa0;
-      --border: rgba(0,255,136,0.12); --danger: #ff4444;
-      --success: rgba(0,255,136,0.15); --radius: 10px;
+      --bg:#070d14;--bg2:#0d1a26;--card:#0f1f30;
+      --accent:#00ff88;--text:#e8f4f0;--muted:#6b8aa0;
+      --border:rgba(0,255,136,0.12);--danger:#ff4444;--radius:10px;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-    .page { display: flex; min-height: 100vh; }
-
-    /* Sidebar */
-    .sidebar {
-      width: 240px; flex-shrink: 0;
-      background: var(--bg2); border-right: 1px solid var(--border);
-      padding: 1.5rem 1rem;
-      display: flex; flex-direction: column; gap: 0.5rem;
-    }
-    .sidebar-logo {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.9rem; color: var(--accent); padding: 0.5rem 0.75rem;
-      margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem;
-    }
-    .nav-item {
-      display: flex; align-items: center; gap: 0.6rem;
-      padding: 0.6rem 0.75rem; border-radius: var(--radius);
-      font-size: 0.88rem; color: var(--muted); cursor: pointer;
-      border: none; background: none; width: 100%; text-align: left;
-      transition: all 0.2s;
-    }
-    .nav-item:hover, .nav-item.active { background: rgba(0,255,136,0.08); color: var(--accent); }
-    .sidebar-bottom { margin-top: auto; }
-
-    /* Main */
-    .main { flex: 1; padding: 2rem; overflow-y: auto; }
-
-    /* Topbar */
-    .topbar {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);
-    }
-    .topbar-title { font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--text); }
-    .badge-online {
-      display: flex; align-items: center; gap: 0.4rem;
-      font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--accent);
-    }
-    .dot-green { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-    /* Cards */
-    .card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.75rem; margin-bottom: 1.5rem;
-    }
-    .card-title {
-      font-family: 'Space Mono', monospace; font-size: 0.78rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 1.25rem;
-      padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
-    }
-
-    /* Forms */
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .form-group { margin-bottom: 1rem; }
-    label { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem; font-family: 'Space Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; }
-    input, textarea {
-      width: 100%; background: var(--bg); border: 1px solid var(--border);
-      border-radius: 6px; padding: 0.7rem 0.9rem;
-      color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.88rem;
-      outline: none; transition: border-color 0.2s;
-    }
-    input:focus, textarea:focus { border-color: var(--accent); }
-    textarea { min-height: 100px; resize: vertical; }
-
-    /* Buttons */
-    .btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.4rem; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 2px solid; }
-    .btn-accent { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-    .btn-accent:hover { background: transparent; color: var(--accent); }
-    .btn-ghost { background: transparent; color: var(--accent); border-color: var(--accent); }
-    .btn-ghost:hover { background: var(--accent); color: var(--bg); }
-    .btn-danger { background: transparent; color: var(--danger); border-color: var(--danger); }
-    .btn-danger:hover { background: var(--danger); color: white; }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    /* Upload area */
-    .upload-zone {
-      border: 2px dashed var(--border); border-radius: var(--radius);
-      padding: 2rem; text-align: center; cursor: pointer;
-      transition: all 0.2s; position: relative;
-    }
-    .upload-zone:hover { border-color: var(--accent); background: rgba(0,255,136,0.04); }
-    .upload-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-    .upload-zone-text { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
-    .upload-zone-icon { font-size: 2rem; }
-
-    /* Tabs */
-    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
-    .tab-btn { padding: 0.6rem 1.2rem; background: none; border: none; color: var(--muted); cursor: pointer; font-family: 'Space Mono', monospace; font-size: 0.78rem; border-bottom: 2px solid transparent; transition: all 0.2s; margin-bottom: -1px; }
-    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-
-    /* Alerts */
-    .alert { padding: 0.75rem 1rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem; font-family: 'Space Mono', monospace; }
-    .alert-success { background: rgba(0,255,136,0.1); border: 1px solid var(--accent); color: var(--accent); }
-    .alert-error   { background: rgba(255,68,68,0.1); border: 1px solid var(--danger); color: var(--danger); }
-
-    /* Login screen */
-    #login-screen {
-      display: flex; align-items: center; justify-content: center;
-      min-height: 100vh; background: var(--bg);
-    }
-    .login-box {
-      width: 100%; max-width: 380px; background: var(--card);
-      border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem;
-    }
-    .login-logo { font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--accent); margin-bottom: 1.5rem; }
-    .login-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem; }
-    .login-subtitle { font-size: 0.85rem; color: var(--muted); margin-bottom: 2rem; }
-
-    /* Current photo preview */
-    .photo-preview { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); margin-bottom: 1rem; }
-
-    /* Hidden */
-    .hidden { display: none !important; }
-
-    /* Responsive */
-    @media(max-width:768px){
-      .sidebar { display: none; }
-      .form-row { grid-template-columns: 1fr; }
-    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+    .page{display:flex;min-height:100vh}
+    .sidebar{width:240px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);padding:1.5rem 1rem;display:flex;flex-direction:column;gap:0.5rem}
+    .sidebar-logo{font-family:'Space Mono',monospace;font-size:0.9rem;color:var(--accent);padding:0.5rem 0.75rem;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:1rem}
+    .nav-item{display:flex;align-items:center;gap:0.6rem;padding:0.6rem 0.75rem;border-radius:var(--radius);font-size:0.88rem;color:var(--muted);cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:all 0.2s}
+    .nav-item:hover,.nav-item.active{background:rgba(0,255,136,0.08);color:var(--accent)}
+    .sidebar-bottom{margin-top:auto}
+    .main{flex:1;padding:2rem;overflow-y:auto}
+    .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+    .topbar-title{font-family:'Space Mono',monospace;font-size:1rem}
+    .badge-online{display:flex;align-items:center;gap:0.4rem;font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--accent)}
+    .dot-green{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem;margin-bottom:1.5rem}
+    .card-title{font-family:'Space Mono',monospace;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border)}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .form-group{margin-bottom:1rem}
+    label{display:block;font-size:0.75rem;color:var(--muted);margin-bottom:0.4rem;font-family:'Space Mono',monospace;letter-spacing:0.08em;text-transform:uppercase}
+    input,textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:0.7rem 0.9rem;color:var(--text);font-family:'Inter',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.2s}
+    input:focus,textarea:focus{border-color:var(--accent)}
+    textarea{min-height:100px;resize:vertical}
+    .btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.4rem;border-radius:6px;font-family:'Space Mono',monospace;font-size:0.8rem;font-weight:700;cursor:pointer;transition:all 0.2s;border:2px solid}
+    .btn-accent{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+    .btn-accent:hover{background:transparent;color:var(--accent)}
+    .btn-ghost{background:transparent;color:var(--accent);border-color:var(--accent)}
+    .btn-ghost:hover{background:var(--accent);color:var(--bg)}
+    .btn-danger{background:transparent;color:var(--danger);border-color:var(--danger)}
+    .btn:disabled{opacity:0.5;cursor:not-allowed}
+    .upload-zone{border:2px dashed var(--border);border-radius:var(--radius);padding:2rem;text-align:center;cursor:pointer;transition:all 0.2s;position:relative}
+    .upload-zone:hover{border-color:var(--accent);background:rgba(0,255,136,0.04)}
+    .upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .upload-zone-text{font-size:0.85rem;color:var(--muted);margin-top:0.5rem}
+    .upload-zone-icon{font-size:2rem}
+    .tab-content{display:none}
+    .tab-content.active{display:block}
+    .alert{padding:0.75rem 1rem;border-radius:6px;font-size:0.85rem;margin-bottom:1rem;font-family:'Space Mono',monospace}
+    .alert-success{background:rgba(0,255,136,0.1);border:1px solid var(--accent);color:var(--accent)}
+    .alert-error{background:rgba(255,68,68,0.1);border:1px solid var(--danger);color:var(--danger)}
+    #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg)}
+    .login-box{width:100%;max-width:380px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.5rem}
+    .login-logo{font-family:'Space Mono',monospace;font-size:1rem;color:var(--accent);margin-bottom:1.5rem}
+    .login-title{font-size:1.25rem;font-weight:700;margin-bottom:0.25rem}
+    .login-subtitle{font-size:0.85rem;color:var(--muted);margin-bottom:2rem}
+    .photo-preview{width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);margin-bottom:1rem}
+    .hidden{display:none!important}
+    @media(max-width:768px){.sidebar{display:none}.form-row{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
 
-  <!-- LOGIN SCREEN -->
-  <div id="login-screen">
-    <div class="login-box">
-      <div class="login-logo">🛡️ Admin Panel</div>
-      <h1 class="login-title">Secure Login</h1>
-      <p class="login-subtitle">Taufeeq Portfolio — Admin Access</p>
-      <div id="login-alert"></div>
-      <div class="form-group">
-        <label for="l-username">Username</label>
-        <input id="l-username" type="text" placeholder="admin" autocomplete="username" />
-      </div>
-      <div class="form-group">
-        <label for="l-password">Password</label>
-        <input id="l-password" type="password" placeholder="••••••••••••" autocomplete="current-password" />
-      </div>
-      <button class="btn btn-accent" style="width:100%" id="login-btn">Login →</button>
-      <p style="margin-top:1rem;font-size:0.75rem;color:var(--muted);text-align:center;font-family:'Space Mono',monospace">
-        Protected by JWT • bcrypt • Rate Limiting
-      </p>
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">🛡️ Admin Panel</div>
+    <h1 class="login-title">Secure Login</h1>
+    <p class="login-subtitle">Taufeeq Portfolio — Admin Access</p>
+    <div id="login-alert"></div>
+    <div class="form-group">
+      <label for="l-username">Username</label>
+      <input id="l-username" type="text" placeholder="admin" autocomplete="username" />
     </div>
+    <div class="form-group">
+      <label for="l-password">Password</label>
+      <input id="l-password" type="password" placeholder="••••••••••••" autocomplete="current-password" />
+    </div>
+    <button class="btn btn-accent" id="login-btn" style="width:100%">Login →</button>
+    <p style="margin-top:1rem;font-size:0.75rem;color:var(--muted);text-align:center;font-family:'Space Mono',monospace">
+      Protected by JWT • bcrypt • Rate Limiting
+    </p>
   </div>
+</div>
 
-  <!-- ADMIN PANEL (hidden until logged in) -->
-  <div id="admin-panel" class="page hidden">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="sidebar-logo">🛡️ Admin Panel</div>
-      <button class="nav-item active" onclick="showTab('dashboard')">📊 Dashboard</button>
-      <button class="nav-item" onclick="showTab('profile')">👤 Profile & Photo</button>
-      <button class="nav-item" onclick="showTab('cv')">📄 Upload CV</button>
-      <button class="nav-item" onclick="showTab('resume')">✏️ Edit Resume</button>
-      <div class="sidebar-bottom">
-        <button class="nav-item" onclick="logout()">🚪 Logout</button>
-      </div>
-    </aside>
+<!-- ADMIN PANEL -->
+<div id="admin-panel" class="page hidden">
+  <aside class="sidebar">
+    <div class="sidebar-logo">🛡️ Admin Panel</div>
+    <button class="nav-item active" id="nav-dashboard">📊 Dashboard</button>
+    <button class="nav-item" id="nav-profile">👤 Profile & Photo</button>
+    <button class="nav-item" id="nav-cv">📄 Upload CV</button>
+    <button class="nav-item" id="nav-resume">✏️ Edit Resume</button>
+    <div class="sidebar-bottom">
+      <button class="nav-item" id="nav-logout">🚪 Logout</button>
+    </div>
+  </aside>
 
-    <!-- Main content -->
-    <main class="main">
-      <div class="topbar">
-        <span class="topbar-title">Portfolio Admin</span>
-        <div class="badge-online"><span class="dot-green"></span>Session Active</div>
-      </div>
+  <main class="main">
+    <div class="topbar">
+      <span class="topbar-title" style="font-family:'Space Mono',monospace">Portfolio Admin</span>
+      <div class="badge-online"><span class="dot-green"></span>Session Active</div>
+    </div>
 
-      <div id="admin-alert"></div>
+    <div id="admin-alert"></div>
 
-      <!-- DASHBOARD TAB -->
-      <div id="tab-dashboard" class="tab-content active">
-        <div class="card">
-          <div class="card-title">⚡ Quick Actions</div>
-          <div style="display:flex;gap:1rem;flex-wrap:wrap">
-            <a href="/" target="_blank" class="btn btn-ghost">🌐 View Portfolio ↗</a>
-            <button class="btn btn-ghost" onclick="showTab('profile')">📸 Update Photo</button>
-            <button class="btn btn-ghost" onclick="showTab('cv')">📄 Upload CV</button>
-            <button class="btn btn-ghost" onclick="showTab('resume')">✏️ Edit Info</button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-title">🔒 Security Status</div>
-          <div style="display:flex;flex-direction:column;gap:0.6rem;font-size:0.85rem">
-            <div style="display:flex;justify-content:space-between"><span>JWT Authentication</span><span style="color:var(--accent)">✅ Active</span></div>
-            <div style="display:flex;justify-content:space-between"><span>CSRF Protection</span><span style="color:var(--accent)">✅ Active</span></div>
-            <div style="display:flex;justify-content:space-between"><span>Rate Limiting</span><span style="color:var(--accent)">✅ Active</span></div>
-            <div style="display:flex;justify-content:space-between"><span>Helmet.js Headers</span><span style="color:var(--accent)">✅ Active</span></div>
-            <div style="display:flex;justify-content:space-between"><span>bcrypt Password Hashing</span><span style="color:var(--accent)">✅ Active</span></div>
-            <div style="display:flex;justify-content:space-between"><span>HttpOnly Cookies</span><span style="color:var(--accent)">✅ Active</span></div>
-          </div>
+    <!-- DASHBOARD -->
+    <div id="tab-dashboard" class="tab-content active">
+      <div class="card">
+        <div class="card-title">⚡ Quick Actions</div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <a href="/" target="_blank" class="btn btn-ghost">🌐 View Portfolio ↗</a>
+          <button class="btn btn-ghost" id="qa-photo">📸 Update Photo</button>
+          <button class="btn btn-ghost" id="qa-cv">📄 Upload CV</button>
+          <button class="btn btn-ghost" id="qa-resume">✏️ Edit Info</button>
         </div>
       </div>
-
-      <!-- PROFILE TAB -->
-      <div id="tab-profile" class="tab-content">
-        <div class="card">
-          <div class="card-title">👤 Update Profile Photo</div>
-          <img id="current-photo" src="/assets/images/profile.jpg" alt="Current profile photo" class="photo-preview" />
-          <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem">Accepted: JPG, PNG, WebP — Max 5MB</p>
-          <div class="upload-zone" id="photo-zone">
-            <input type="file" id="photo-input" accept=".jpg,.jpeg,.png,.webp" />
-            <div class="upload-zone-icon">🖼️</div>
-            <p style="font-weight:600;margin-top:0.5rem">Click or drag photo here</p>
-            <p class="upload-zone-text">File will be renamed with UUID for security</p>
-          </div>
-          <div style="margin-top:1rem">
-            <button class="btn btn-accent" id="upload-photo-btn" onclick="uploadPhoto()">Upload Photo</button>
-          </div>
+      <div class="card">
+        <div class="card-title">🔒 Security Status</div>
+        <div style="display:flex;flex-direction:column;gap:0.6rem;font-size:0.85rem">
+          <div style="display:flex;justify-content:space-between"><span>JWT Authentication</span><span style="color:var(--accent)">✅ Active</span></div>
+          <div style="display:flex;justify-content:space-between"><span>CSRF Protection</span><span style="color:var(--accent)">✅ Active</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Rate Limiting</span><span style="color:var(--accent)">✅ Active</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Helmet.js Headers</span><span style="color:var(--accent)">✅ Active</span></div>
+          <div style="display:flex;justify-content:space-between"><span>bcrypt Password Hashing</span><span style="color:var(--accent)">✅ Active</span></div>
+          <div style="display:flex;justify-content:space-between"><span>HttpOnly Cookies</span><span style="color:var(--accent)">✅ Active</span></div>
         </div>
       </div>
+    </div>
 
-      <!-- CV TAB -->
-      <div id="tab-cv" class="tab-content">
-        <div class="card">
-          <div class="card-title">📄 Upload CV / Resume PDF</div>
-          <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem">Accepted: PDF only — Max 5MB</p>
-          <div class="upload-zone" id="cv-zone">
-            <input type="file" id="cv-input" accept=".pdf" />
-            <div class="upload-zone-icon">📄</div>
-            <p style="font-weight:600;margin-top:0.5rem">Click or drag PDF here</p>
-            <p class="upload-zone-text">Replaces the current CV download</p>
-          </div>
-          <div style="margin-top:1rem">
-            <button class="btn btn-accent" onclick="uploadCV()">Upload CV</button>
-          </div>
+    <!-- PROFILE -->
+    <div id="tab-profile" class="tab-content">
+      <div class="card">
+        <div class="card-title">👤 Update Profile Photo</div>
+        <img id="current-photo" src="/assets/images/profile.jpg" alt="Current profile photo" class="photo-preview" />
+        <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem">Accepted: JPG, PNG, WebP — Max 5MB</p>
+        <div class="upload-zone">
+          <input type="file" id="photo-input" accept=".jpg,.jpeg,.png,.webp" />
+          <div class="upload-zone-icon">🖼️</div>
+          <p style="font-weight:600;margin-top:0.5rem">Click or drag photo here</p>
+          <p class="upload-zone-text">File will be renamed with UUID for security</p>
+        </div>
+        <div style="margin-top:1rem">
+          <button class="btn btn-accent" id="upload-photo-btn">Upload Photo</button>
         </div>
       </div>
+    </div>
 
-      <!-- RESUME EDIT TAB -->
-      <div id="tab-resume" class="tab-content">
-        <div class="card">
-          <div class="card-title">✏️ Edit Resume Information</div>
-          <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1.5rem">Changes are immediately reflected on the portfolio frontend.</p>
+    <!-- CV -->
+    <div id="tab-cv" class="tab-content">
+      <div class="card">
+        <div class="card-title">📄 Upload CV / Resume PDF</div>
+        <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem">Accepted: PDF only — Max 5MB</p>
+        <div class="upload-zone">
+          <input type="file" id="cv-input" accept=".pdf" />
+          <div class="upload-zone-icon">📄</div>
+          <p style="font-weight:600;margin-top:0.5rem">Click or drag PDF here</p>
+          <p class="upload-zone-text">Replaces the current CV download</p>
+        </div>
+        <div style="margin-top:1rem">
+          <button class="btn btn-accent" id="upload-cv-btn">Upload CV</button>
+        </div>
+      </div>
+    </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="r-name">Full Name</label>
-              <input id="r-name" type="text" placeholder="Taufeeq Ur Rehman" />
-            </div>
-            <div class="form-group">
-              <label for="r-title">Title / Role</label>
-              <input id="r-title" type="text" placeholder="Web Developer & Pentester" />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="r-email">Email</label>
-              <input id="r-email" type="email" placeholder="email@example.com" />
-            </div>
-            <div class="form-group">
-              <label for="r-phone">Phone / WhatsApp</label>
-              <input id="r-phone" type="text" placeholder="+923152438034" />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="r-github">GitHub URL</label>
-              <input id="r-github" type="url" placeholder="https://github.com/..." />
-            </div>
-            <div class="form-group">
-              <label for="r-linkedin">LinkedIn URL</label>
-              <input id="r-linkedin" type="url" placeholder="https://linkedin.com/in/..." />
-            </div>
-          </div>
-
+    <!-- RESUME EDIT -->
+    <div id="tab-resume" class="tab-content">
+      <div class="card">
+        <div class="card-title">✏️ Edit Resume Information</div>
+        <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1.5rem">Changes are immediately reflected on the portfolio.</p>
+        <div class="form-row">
           <div class="form-group">
-            <label for="r-location">Location</label>
-            <input id="r-location" type="text" placeholder="Karachi, Pakistan" />
+            <label for="r-name">Full Name</label>
+            <input id="r-name" type="text" placeholder="Taufeeq Ur Rehman" />
           </div>
-
           <div class="form-group">
-            <label for="r-tagline">Tagline</label>
-            <input id="r-tagline" type="text" placeholder="Building Secure, High-Performance Web Experiences" />
-          </div>
-
-          <div class="form-group">
-            <label for="r-about">About Me</label>
-            <textarea id="r-about" placeholder="Your about description..."></textarea>
-          </div>
-
-          <div style="display:flex;gap:1rem;flex-wrap:wrap">
-            <button class="btn btn-accent" onclick="loadResumeData()">🔄 Load Current Data</button>
-            <button class="btn btn-ghost" onclick="saveResumeData()">💾 Save Changes</button>
+            <label for="r-title">Title / Role</label>
+            <input id="r-title" type="text" placeholder="Web Developer & Pentester" />
           </div>
         </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="r-email">Email</label>
+            <input id="r-email" type="email" placeholder="email@example.com" />
+          </div>
+          <div class="form-group">
+            <label for="r-phone">Phone / WhatsApp</label>
+            <input id="r-phone" type="text" placeholder="+923152438034" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="r-github">GitHub URL</label>
+            <input id="r-github" type="url" placeholder="https://github.com/..." />
+          </div>
+          <div class="form-group">
+            <label for="r-linkedin">LinkedIn URL</label>
+            <input id="r-linkedin" type="url" placeholder="https://linkedin.com/in/..." />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="r-location">Location</label>
+          <input id="r-location" type="text" placeholder="Karachi, Pakistan" />
+        </div>
+        <div class="form-group">
+          <label for="r-tagline">Tagline</label>
+          <input id="r-tagline" type="text" placeholder="Building Secure, High-Performance Web Experiences" />
+        </div>
+        <div class="form-group">
+          <label for="r-about">About Me</label>
+          <textarea id="r-about" placeholder="Your about description..."></textarea>
+        </div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <button class="btn btn-accent" id="load-resume-btn">🔄 Load Current Data</button>
+          <button class="btn btn-ghost" id="save-resume-btn">💾 Save Changes</button>
+        </div>
       </div>
+    </div>
 
-    </main>
-  </div>
+  </main>
+</div>
 
-  <script>
-    let csrfToken = '';
+<script>
+(function() {
+  'use strict';
 
-    // ─── Fetch CSRF token ──────────────────────────────────
-    async function getCsrf() {
-      try {
-        const r = await fetch('/api/csrf-token');
-        const d = await r.json();
-        csrfToken = d.csrfToken;
-      } catch (e) { console.error('CSRF fetch failed:', e); }
-    }
+  let csrfToken = '';
 
-    // ─── On load: check session ────────────────────────────
-    window.addEventListener('DOMContentLoaded', async () => {
-      await getCsrf();
-      try {
-        const r = await fetch('/api/admin/verify');
-        if (r.ok) showPanel();
-      } catch {}
+  // ─── Init ───────────────────────────────────────────────
+  window.addEventListener('load', async function() {
+    await getCsrf();
+    await checkSession();
+    bindEvents();
+  });
+
+  // ─── CSRF ───────────────────────────────────────────────
+  async function getCsrf() {
+    try {
+      const r = await fetch('/api/csrf-token');
+      const d = await r.json();
+      csrfToken = d.csrfToken;
+    } catch(e) { console.error('CSRF fetch failed', e); }
+  }
+
+  // ─── Check session ──────────────────────────────────────
+  async function checkSession() {
+    try {
+      const r = await fetch('/api/admin/verify');
+      if (r.ok) showPanel();
+    } catch(e) {}
+  }
+
+  // ─── Bind all events ────────────────────────────────────
+  function bindEvents() {
+    // Login
+    document.getElementById('login-btn').addEventListener('click', login);
+    document.getElementById('l-password').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') login();
     });
 
-    // ─── Login ─────────────────────────────────────────────
-    document.getElementById('login-btn').addEventListener('click', login);
-    document.getElementById('l-password').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+    // Sidebar nav
+    document.getElementById('nav-dashboard').addEventListener('click', function() { showTab('dashboard'); setActiveNav(this); });
+    document.getElementById('nav-profile').addEventListener('click', function() { showTab('profile'); setActiveNav(this); });
+    document.getElementById('nav-cv').addEventListener('click', function() { showTab('cv'); setActiveNav(this); });
+    document.getElementById('nav-resume').addEventListener('click', function() { showTab('resume'); loadResumeData(); setActiveNav(this); });
+    document.getElementById('nav-logout').addEventListener('click', logout);
 
-    async function login() {
-      const btn = document.getElementById('login-btn');
-      btn.disabled = true; btn.textContent = 'Logging in...';
-      clearAlert('login-alert');
-      try {
-        const r = await fetch('/api/admin/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
-          body: JSON.stringify({
-            username: document.getElementById('l-username').value,
-            password: document.getElementById('l-password').value
-          })
-        });
-        const d = await r.json();
-        if (d.success) {
-          showPanel();
-        } else {
-          showAlert('login-alert', d.message || 'Login failed.', 'error');
-        }
-      } catch {
-        showAlert('login-alert', 'Network error. Is the server running?', 'error');
-      }
-      btn.disabled = false; btn.textContent = 'Login →';
-    }
-
-    function showPanel() {
-      document.getElementById('login-screen').classList.add('hidden');
-      document.getElementById('admin-panel').classList.remove('hidden');
+    // Quick action buttons in dashboard
+    document.getElementById('qa-photo').addEventListener('click', function() {
+      showTab('profile');
+      setActiveNav(document.getElementById('nav-profile'));
+    });
+    document.getElementById('qa-cv').addEventListener('click', function() {
+      showTab('cv');
+      setActiveNav(document.getElementById('nav-cv'));
+    });
+    document.getElementById('qa-resume').addEventListener('click', function() {
+      showTab('resume');
       loadResumeData();
+      setActiveNav(document.getElementById('nav-resume'));
+    });
+
+    // Upload buttons
+    document.getElementById('upload-photo-btn').addEventListener('click', uploadPhoto);
+    document.getElementById('upload-cv-btn').addEventListener('click', uploadCV);
+
+    // Resume buttons
+    document.getElementById('load-resume-btn').addEventListener('click', loadResumeData);
+    document.getElementById('save-resume-btn').addEventListener('click', saveResumeData);
+
+    // Photo preview on file select
+    document.getElementById('photo-input').addEventListener('change', function() {
+      if (this.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('current-photo').src = e.target.result;
+        };
+        reader.readAsDataURL(this.files[0]);
+      }
+    });
+  }
+
+  // ─── Login ──────────────────────────────────────────────
+  async function login() {
+    const btn = document.getElementById('login-btn');
+    btn.disabled = true;
+    btn.textContent = 'Logging in...';
+    clearAlert('login-alert');
+
+    try {
+      const r = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify({
+          username: document.getElementById('l-username').value,
+          password: document.getElementById('l-password').value
+        })
+      });
+      const d = await r.json();
+      if (d.success) {
+        showPanel();
+      } else {
+        showAlert('login-alert', d.message || 'Login failed.', 'error');
+      }
+    } catch(e) {
+      showAlert('login-alert', 'Network error. Is the server running?', 'error');
     }
 
-    // ─── Logout ────────────────────────────────────────────
-    async function logout() {
+    btn.disabled = false;
+    btn.textContent = 'Login →';
+  }
+
+  // ─── Show panel ─────────────────────────────────────────
+  function showPanel() {
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('admin-panel').classList.remove('hidden');
+    loadResumeData();
+  }
+
+  // ─── Logout ─────────────────────────────────────────────
+  async function logout() {
+    try {
       await fetch('/api/admin/logout', {
         method: 'POST',
         headers: { 'X-CSRF-Token': csrfToken }
       });
-      location.reload();
-    }
+    } catch(e) {}
+    location.reload();
+  }
 
-    // ─── Tab switching ──────────────────────────────────────
-    function showTab(name) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      document.getElementById('tab-' + name)?.classList.add('active');
-      event.currentTarget?.classList.add('active');
-    }
-
-    // ─── Upload Photo ──────────────────────────────────────
-    async function uploadPhoto() {
-      const input = document.getElementById('photo-input');
-      if (!input.files[0]) { showAlert('admin-alert', 'Please select a photo first.', 'error'); return; }
-
-      const formData = new FormData();
-      formData.append('photo', input.files[0]);
-
-      try {
-        const r = await fetch('/api/admin/upload/photo', {
-          method: 'POST',
-          headers: { 'X-CSRF-Token': csrfToken },
-          body: formData
-        });
-        const d = await r.json();
-        if (d.success) {
-          showAlert('admin-alert', '✅ Photo updated successfully!', 'success');
-          document.getElementById('current-photo').src = d.path + '?t=' + Date.now();
-        } else {
-          showAlert('admin-alert', d.message, 'error');
-        }
-      } catch {
-        showAlert('admin-alert', 'Upload failed.', 'error');
-      }
-    }
-
-    // ─── Upload CV ─────────────────────────────────────────
-    async function uploadCV() {
-      const input = document.getElementById('cv-input');
-      if (!input.files[0]) { showAlert('admin-alert', 'Please select a PDF first.', 'error'); return; }
-
-      const formData = new FormData();
-      formData.append('cv', input.files[0]);
-
-      try {
-        const r = await fetch('/api/admin/upload/cv', {
-          method: 'POST',
-          headers: { 'X-CSRF-Token': csrfToken },
-          body: formData
-        });
-        const d = await r.json();
-        if (d.success) {
-          showAlert('admin-alert', '✅ CV uploaded successfully!', 'success');
-        } else {
-          showAlert('admin-alert', d.message, 'error');
-        }
-      } catch {
-        showAlert('admin-alert', 'Upload failed.', 'error');
-      }
-    }
-
-    // ─── Load Resume Data ──────────────────────────────────
-    async function loadResumeData() {
-      try {
-        const r = await fetch('/api/admin/resume');
-        const d = await r.json();
-        if (d.success) {
-          const data = d.data;
-          document.getElementById('r-name').value     = data.name || '';
-          document.getElementById('r-title').value    = data.title || '';
-          document.getElementById('r-email').value    = data.email || '';
-          document.getElementById('r-phone').value    = data.phone || '';
-          document.getElementById('r-github').value   = data.github || '';
-          document.getElementById('r-linkedin').value = data.linkedin || '';
-          document.getElementById('r-location').value = data.location || '';
-          document.getElementById('r-tagline').value  = data.tagline || '';
-          document.getElementById('r-about').value    = data.about || '';
-          showAlert('admin-alert', '✅ Resume data loaded.', 'success');
-        }
-      } catch {
-        showAlert('admin-alert', 'Failed to load resume data.', 'error');
-      }
-    }
-
-    // ─── Save Resume Data ──────────────────────────────────
-    async function saveResumeData() {
-      const payload = {
-        name:     document.getElementById('r-name').value,
-        title:    document.getElementById('r-title').value,
-        email:    document.getElementById('r-email').value,
-        phone:    document.getElementById('r-phone').value,
-        github:   document.getElementById('r-github').value,
-        linkedin: document.getElementById('r-linkedin').value,
-        location: document.getElementById('r-location').value,
-        tagline:  document.getElementById('r-tagline').value,
-        about:    document.getElementById('r-about').value,
-      };
-
-      try {
-        const r = await fetch('/api/admin/resume', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
-          body: JSON.stringify(payload)
-        });
-        const d = await r.json();
-        if (d.success) {
-          showAlert('admin-alert', '✅ Resume updated! Changes are live on the portfolio.', 'success');
-        } else {
-          showAlert('admin-alert', d.message || 'Save failed.', 'error');
-        }
-      } catch {
-        showAlert('admin-alert', 'Network error.', 'error');
-      }
-    }
-
-    // ─── UI helpers ────────────────────────────────────────
-    function showAlert(id, msg, type) {
-      const el = document.getElementById(id);
-      el.innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
-      setTimeout(() => { el.innerHTML = ''; }, 5000);
-    }
-
-    function clearAlert(id) {
-      document.getElementById(id).innerHTML = '';
-    }
-
-    // Update photo preview on file select
-    document.getElementById('photo-input')?.addEventListener('change', function() {
-      if (this.files[0]) {
-        const reader = new FileReader();
-        reader.onload = e => document.getElementById('current-photo').src = e.target.result;
-        reader.readAsDataURL(this.files[0]);
-      }
+  // ─── Tab switching ───────────────────────────────────────
+  function showTab(name) {
+    document.querySelectorAll('.tab-content').forEach(function(t) {
+      t.classList.remove('active');
     });
-  </script>
+    var tab = document.getElementById('tab-' + name);
+    if (tab) tab.classList.add('active');
+  }
+
+  function setActiveNav(el) {
+    document.querySelectorAll('.nav-item').forEach(function(n) {
+      n.classList.remove('active');
+    });
+    if (el) el.classList.add('active');
+  }
+
+  // ─── Upload Photo ────────────────────────────────────────
+  async function uploadPhoto() {
+    const input = document.getElementById('photo-input');
+    if (!input.files[0]) {
+      showAlert('admin-alert', 'Please select a photo first.', 'error');
+      return;
+    }
+
+    const btn = document.getElementById('upload-photo-btn');
+    btn.disabled = true;
+    btn.textContent = 'Uploading...';
+
+    const formData = new FormData();
+    formData.append('photo', input.files[0]);
+
+    try {
+      const r = await fetch('/api/admin/upload/photo', {
+        method: 'POST',
+        headers: { 'X-CSRF-Token': csrfToken },
+        body: formData
+      });
+      const d = await r.json();
+      if (d.success) {
+        showAlert('admin-alert', '✅ Photo updated successfully!', 'success');
+        document.getElementById('current-photo').src = d.path + '?t=' + Date.now();
+      } else {
+        showAlert('admin-alert', d.message || 'Upload failed.', 'error');
+      }
+    } catch(e) {
+      showAlert('admin-alert', 'Network error during upload.', 'error');
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Upload Photo';
+  }
+
+  // ─── Upload CV ───────────────────────────────────────────
+  async function uploadCV() {
+    const input = document.getElementById('cv-input');
+    if (!input.files[0]) {
+      showAlert('admin-alert', 'Please select a PDF first.', 'error');
+      return;
+    }
+
+    const btn = document.getElementById('upload-cv-btn');
+    btn.disabled = true;
+    btn.textContent = 'Uploading...';
+
+    const formData = new FormData();
+    formData.append('cv', input.files[0]);
+
+    try {
+      const r = await fetch('/api/admin/upload/cv', {
+        method: 'POST',
+        headers: { 'X-CSRF-Token': csrfToken },
+        body: formData
+      });
+      const d = await r.json();
+      if (d.success) {
+        showAlert('admin-alert', '✅ CV uploaded successfully!', 'success');
+      } else {
+        showAlert('admin-alert', d.message || 'Upload failed.', 'error');
+      }
+    } catch(e) {
+      showAlert('admin-alert', 'Network error during upload.', 'error');
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Upload CV';
+  }
+
+  // ─── Load Resume ─────────────────────────────────────────
+  async function loadResumeData() {
+    try {
+      const r = await fetch('/api/admin/resume');
+      const d = await r.json();
+      if (d.success) {
+        const data = d.data;
+        document.getElementById('r-name').value     = data.name     || '';
+        document.getElementById('r-title').value    = data.title    || '';
+        document.getElementById('r-email').value    = data.email    || '';
+        document.getElementById('r-phone').value    = data.phone    || '';
+        document.getElementById('r-github').value   = data.github   || '';
+        document.getElementById('r-linkedin').value = data.linkedin || '';
+        document.getElementById('r-location').value = data.location || '';
+        document.getElementById('r-tagline').value  = data.tagline  || '';
+        document.getElementById('r-about').value    = data.about    || '';
+        showAlert('admin-alert', '✅ Resume data loaded.', 'success');
+      }
+    } catch(e) {
+      showAlert('admin-alert', 'Failed to load resume data.', 'error');
+    }
+  }
+
+  // ─── Save Resume ─────────────────────────────────────────
+  async function saveResumeData() {
+    const btn = document.getElementById('save-resume-btn');
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+
+    const payload = {
+      name:     document.getElementById('r-name').value,
+      title:    document.getElementById('r-title').value,
+      email:    document.getElementById('r-email').value,
+      phone:    document.getElementById('r-phone').value,
+      github:   document.getElementById('r-github').value,
+      linkedin: document.getElementById('r-linkedin').value,
+      location: document.getElementById('r-location').value,
+      tagline:  document.getElementById('r-tagline').value,
+      about:    document.getElementById('r-about').value,
+    };
+
+    try {
+      const r = await fetch('/api/admin/resume', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify(payload)
+      });
+      const d = await r.json();
+      if (d.success) {
+        showAlert('admin-alert', '✅ Resume updated! Changes are live on the portfolio.', 'success');
+      } else {
+        showAlert('admin-alert', d.message || 'Save failed.', 'error');
+      }
+    } catch(e) {
+      showAlert('admin-alert', 'Network error.', 'error');
+    }
+
+    btn.disabled = false;
+    btn.textContent = '💾 Save Changes';
+  }
+
+  // ─── Alert helpers ───────────────────────────────────────
+  function showAlert(id, msg, type) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = '<div class="alert alert-' + type + '">' + msg + '</div>';
+    setTimeout(function() { el.innerHTML = ''; }, 5000);
+  }
+
+  function clearAlert(id) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = '';
+  }
+
+})();
+</script>
 </body>
 </html>

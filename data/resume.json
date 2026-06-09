@@ -1,6 +1,6 @@
 {
   "name": "Taufeeq Ur Rehman",
-  "title": "Web Developer & Pentester",
+  "title": "Web Developer &amp;amp;amp;amp;amp; Pentester",
   "tagline": "Building Secure, High-Performance Web Experiences",
   "email": "taufeequrrehman98@gmail.com",
   "phone": "+923152438034",
@@ -8,8 +8,8 @@
   "linkedin": "#",
   "github": "https://github.com/TaufeeqUrRehman98",
   "location": "Karachi, Pakistan",
-  "photo": "/assets/images/profile.jpg",
-  "cv": "/assets/docs/cv.pdf",
+  "photo": "/assets/images/profile-f05a9cf5-d03c-4482-9765-21d223df0805.jpg",
+  "cv": "/assets/docs/cv-05499b46-01a3-4f01-a66e-1217dc813908.pdf",
   "about": "Results-driven Web Developer with 1 year of hands-on experience building responsive websites and web applications. Proficient in WordPress, Shopify, PHP, JavaScript, HTML, and CSS. Combines a Cyber Security background with development skills to build websites that are not only visually appealing but also secure and performance-optimized. Quick learner, detail-oriented, and passionate about clean code.",
   "aboutBullets": [
     "Designed and developed responsive websites for clients using HTML, CSS, JavaScript, and PHP.",
@@ -31,22 +31,58 @@
   ],
   "skills": {
     "Frontend": [
-      { "name": "HTML5 / CSS3", "level": 92 },
-      { "name": "JavaScript (ES6+)", "level": 85 },
-      { "name": "Responsive Design", "level": 90 },
-      { "name": "Bootstrap / Tailwind CSS", "level": 88 }
+      {
+        "name": "HTML5 / CSS3",
+        "level": 92
+      },
+      {
+        "name": "JavaScript (ES6+)",
+        "level": 85
+      },
+      {
+        "name": "Responsive Design",
+        "level": 90
+      },
+      {
+        "name": "Bootstrap / Tailwind CSS",
+        "level": 88
+      }
     ],
     "CMS & E-Commerce": [
-      { "name": "WordPress", "level": 90 },
-      { "name": "Shopify", "level": 85 },
-      { "name": "Theme Customization", "level": 88 },
-      { "name": "Plugin Integration", "level": 82 }
+      {
+        "name": "WordPress",
+        "level": 90
+      },
+      {
+        "name": "Shopify",
+        "level": 85
+      },
+      {
+        "name": "Theme Customization",
+        "level": 88
+      },
+      {
+        "name": "Plugin Integration",
+        "level": 82
+      }
     ],
     "Backend & Security": [
-      { "name": "PHP", "level": 78 },
-      { "name": "Cyber Security Basics", "level": 85 },
-      { "name": "OWASP Web Security", "level": 80 },
-      { "name": "Penetration Testing", "level": 75 }
+      {
+        "name": "PHP",
+        "level": 78
+      },
+      {
+        "name": "Cyber Security Basics",
+        "level": 85
+      },
+      {
+        "name": "OWASP Web Security",
+        "level": 80
+      },
+      {
+        "name": "Penetration Testing",
+        "level": 75
+      }
     ]
   },
   "experience": [
@@ -71,7 +107,12 @@
     {
       "title": "Web Security Scanner",
       "description": "A penetration testing tool that scans web applications for common vulnerabilities including XSS, SQL Injection, CSRF, and OWASP Top 10 threats. Built with Python and a web-based dashboard.",
-      "tags": ["Python", "Cybersecurity", "OWASP", "Penetration Testing"],
+      "tags": [
+        "Python",
+        "Cybersecurity",
+        "OWASP",
+        "Penetration Testing"
+      ],
       "icon": "🛡️",
       "link": "#",
       "github": "https://github.com/TaufeeqUrRehman98"
@@ -79,7 +120,13 @@
     {
       "title": "E-Commerce Websites",
       "description": "Developed multiple fully functional e-commerce storefronts on WordPress/WooCommerce and Shopify with custom themes, payment gateways, and secure checkout flows.",
-      "tags": ["WordPress", "Shopify", "WooCommerce", "PHP", "JavaScript"],
+      "tags": [
+        "WordPress",
+        "Shopify",
+        "WooCommerce",
+        "PHP",
+        "JavaScript"
+      ],
       "icon": "🛒",
       "link": "#",
       "github": "https://github.com/TaufeeqUrRehman98"
@@ -87,7 +134,13 @@
   ],
   "certifications": [],
   "languages": [
-    { "name": "English", "level": "Fluent" },
-    { "name": "Urdu", "level": "Native" }
+    {
+      "name": "English",
+      "level": "Fluent"
+    },
+    {
+      "name": "Urdu",
+      "level": "Native"
+    }
   ]
 }
