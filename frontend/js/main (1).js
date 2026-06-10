@@ -352,14 +352,12 @@
       const btn = form.querySelector('.form-submit-btn');
       const status = document.getElementById('form-status');
 
-      const data = {
-        name:    form.querySelector('[name="name"]').value.trim(),
-        email:   form.querySelector('[name="email"]').value.trim(),
-        subject: form.querySelector('[name="subject"]').value.trim() || 'Portfolio Contact',
-        message: form.querySelector('[name="message"]').value.trim(),
-      };
+      const name    = form.querySelector('[name="name"]').value.trim();
+      const email   = form.querySelector('[name="email"]').value.trim();
+      const subject = form.querySelector('[name="subject"]').value.trim() || 'Portfolio Contact';
+      const message = form.querySelector('[name="message"]').value.trim();
 
-      if (!data.name || !data.email || !data.message) {
+      if (!name || !email || !message) {
         showStatus(status, 'Please fill in all required fields.', 'error');
         return;
       }
@@ -368,27 +366,36 @@
       btn.textContent = 'Sending...';
 
       try {
-        let csrfToken = '';
-        try {
-          const csrfRes = await fetch('/api/csrf-token', { credentials: 'include' });
-          const csrfData = await csrfRes.json();
-          csrfToken = csrfData.csrfToken || '';
-        } catch (csrfErr) {
-          console.warn('CSRF fetch failed:', csrfErr);
+        // Step 1: Always get fresh CSRF token right before submitting
+        const csrfRes = await fetch('/api/csrf-token', { credentials: 'include' });
+        const csrfData = await csrfRes.json();
+        const csrfToken = csrfData.csrfToken || '';
+
+        if (!csrfToken) {
+          showStatus(status, 'Security token error. Please refresh the page.', 'error');
+          btn.disabled = false;
+          btn.textContent = 'Send Message';
+          return;
         }
 
+        // Step 2: Submit form with fresh token
         const res = await fetch('/api/contact', {
           method: 'POST',
           credentials: 'include',
-          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
-          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken
+          },
+          body: JSON.stringify({ name, email, subject, message }),
         });
+
         const result = await res.json();
+
         if (result.success) {
           showStatus(status, 'Message sent! I will get back to you soon.', 'success');
           form.reset();
         } else {
-          showStatus(status, result.message || 'Something went wrong.', 'error');
+          showStatus(status, result.message || 'Something went wrong. Try again.', 'error');
         }
       } catch (err) {
         showStatus(status, 'Network error. Please try again later.', 'error');
