@@ -1460,3 +1460,36 @@ footer {
   .hero-cta .btn-primary,
   .hero-cta .btn-outline { font-size: 0.72rem; padding: 0.6rem 0.8rem; }
 }
+
+/* ── FORCE IMAGE SHOW ON ALL MOBILE SIZES ── */
+@media (max-width: 480px) {
+  .about-image-wrap {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .about-img-container {
+    display: block !important;
+    max-width: 200px !important;
+    width: 200px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+  }
+  .about-img-container img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  /* Fix grid-2 so image shows above text */
+  #about .grid-2 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+}
