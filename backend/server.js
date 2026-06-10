@@ -169,9 +169,33 @@ app.post('/api/contact', contactLimiter, csrfProtection, [
 });
 
 // ─── Frontend ──────────────────────────────────────────────
-app.use(express.static(path.join(__dirname, '../frontend'), { maxAge: '1h' }));
+// Serve frontend static files - NO cache on JS/CSS so updates deploy instantly
+app.use(express.static(path.join(__dirname, '../frontend'), {
+  maxAge: '0',
+  etag: false,
+  setHeaders: function(res, filePath) {
+    if (filePath.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
+    if (filePath.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
+  }
+}));
+
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, '../frontend/admin.html')));
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../frontend/index.html')));
+
+// Catch-all — ONLY for HTML pages, not for JS/CSS/assets
+app.get('*', (req, res) => {
+  const ext = path.extname(req.path);
+  // If requesting a file with extension that doesn't exist, return 404
+  if (ext && ext !== '.html') {
+    return res.status(404).send('File not found: ' + req.path);
+  }
+  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
 
 // ─── Error Handler ─────────────────────────────────────────
 app.use((err, req, res, next) => {
